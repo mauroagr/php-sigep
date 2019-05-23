@@ -66,14 +66,10 @@ class CalcPrecoPrazo
             }
         }
 
-        $servicosDePostagem = array();
+        $servivosDePostagem = array();
         /** @var $servivoDePostagem ServicoDePostagem */
-        if(count($params->getServicosPostagem())>1){
-            foreach ($params->getServicosPostagem() as $servicoDePostagem) {
-                $servicosDePostagem[] = $servicoDePostagem->getCodigo();
-            }
-        }else{
-            $servicosDePostagem[] = $params->getServicosPostagem()->getCodigo();
+        foreach ($params->getServicosPostagem() as $servivoDePostagem) {
+            $servivosDePostagem[] = $servivoDePostagem->getCodigo();
         }
 
         $ajustarDimensaoMinima = $params->getAjustarDimensaoMinima();
@@ -90,7 +86,7 @@ class CalcPrecoPrazo
         $soapArgs = array(
             'nCdEmpresa'          => $params->getAccessData()->getCodAdministrativo(),
             'sDsSenha'            => $params->getAccessData()->getSenha(),
-            'nCdServico'          => implode(',', $servicosDePostagem),
+            'nCdServico'          => implode(',', $servivosDePostagem),
             'sCepOrigem'          => str_replace('-', '', $params->getCepOrigem()),
             'sCepDestino'         => str_replace('-', '', $params->getCepDestino()),
             'nVlPeso'             => $params->getPeso(),
